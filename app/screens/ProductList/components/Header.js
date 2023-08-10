@@ -13,7 +13,7 @@ function Header() {
       }}
     >
       <View>
-        <Text style={{ color: 'white', fontSize: 48 }}>Lighteria</Text>
+        <Text style={{ color: 'black', fontSize: 48 }}>Lighteria</Text>
       </View>
       <View
         style={{
