@@ -1,7 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import ProductList from './app/screens/ProductList/ProductList';
-import ProductDetails from './app/screens/ProductDetails/ProductDetails';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import DetalhesProduto from "./app/screens/DetalhesProduto";
+import ListaProdutos from "./app/screens/ListaProdutos";
 
 const Stack = createStackNavigator();
 
@@ -10,13 +11,13 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="ProductList">
         <Stack.Screen
-          name="ProductList"
-          component={ProductList}
+          name="ListaProdutos"
+          component={ListaProdutos}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ProductDetails"
-          component={ProductDetails}
+          name="DetalhesProduto"
+          component={DetalhesProduto}
           options={{ headerShown: true }}
         />
       </Stack.Navigator>
