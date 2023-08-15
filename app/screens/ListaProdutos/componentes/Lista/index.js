@@ -5,14 +5,19 @@ import { Item } from "./item";
 import { styles } from "./styles";
 
 export const Lista = () => {
-  const [data, setData] = useState([]);
+  const [items, setItems] = useState([]);
+  const [itemCarrinho, setItemCarrinho] = useState([]);
 
   useEffect(async () => {
     await getList();
   }, []);
 
   const getList = async () => {
-    // TODO GETLIST
+    fetch("https://run.mocky.io/v3/6e1a79f0-968f-40de-992f-3d218ab1f249")
+      .then((response) => response.json())
+      .then((json) => {
+        setItems(json);
+      });
   };
 
   return (
@@ -23,7 +28,7 @@ export const Lista = () => {
       </View>
       <FlatList
         numColumns={2}
-        data={[]}
+        data={items}
         renderItem={({ item }) => (
           <Item descricao={item.titulo} imagem={item.imagem} />
         )}

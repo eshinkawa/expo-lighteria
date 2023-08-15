@@ -1,4 +1,4 @@
-import * as Cores from "./colors";
-import * as Tipografia from "./typography";
+import * as Cores from "./cores";
+import * as Tipografia from "./tipografia";
 
 export { Tipografia, Cores };
