@@ -7,7 +7,7 @@ import {
   FONT_FAMILY_SEMI_BOLD,
 } from "../../../../styles/tipografia";
 
-export const Item = ({ descricao, imagem }) => {
+export const Item = ({ titulo, imagem }) => {
   const navigation = useNavigation();
 
   return (
@@ -19,7 +19,7 @@ export const Item = ({ descricao, imagem }) => {
         source={{ uri: imagem, height: 84, width: 84 }}
         resizeMode="contain"
       />
-      <Text style={styles.texto}>{descricao}</Text>
+      <Text style={styles.texto}>{titulo}</Text>
     </TouchableOpacity>
   );
 };

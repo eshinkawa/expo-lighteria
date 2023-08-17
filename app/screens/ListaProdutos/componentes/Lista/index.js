@@ -6,14 +6,13 @@ import { styles } from "./styles";
 
 export const Lista = () => {
   const [items, setItems] = useState([]);
-  const [itemCarrinho, setItemCarrinho] = useState([]);
 
   useEffect(() => {
     getList();
   }, []);
 
   const getList = async () => {
-    fetch("https://run.mocky.io/v3/6e1a79f0-968f-40de-992f-3d218ab1f249")
+    fetch("https://run.mocky.io/v3/8810362d-ffa4-4635-9180-dfefa47242f4")
       .then((response) => response.json())
       .then((json) => {
         setItems(json);
@@ -30,7 +29,11 @@ export const Lista = () => {
         numColumns={2}
         data={items}
         renderItem={({ item }) => (
-          <Item descricao={item.titulo} imagem={item.imagem} />
+          <Item
+            titulo={item.titulo}
+            imagem={item.imagem}
+            descricao={item.itemDesc}
+          />
         )}
         keyExtractor={(item) => item.id}
       />
