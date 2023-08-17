@@ -8,8 +8,8 @@ export const Lista = () => {
   const [items, setItems] = useState([]);
   const [itemCarrinho, setItemCarrinho] = useState([]);
 
-  useEffect(async () => {
-    await getList();
+  useEffect(() => {
+    getList();
   }, []);
 
   const getList = async () => {
