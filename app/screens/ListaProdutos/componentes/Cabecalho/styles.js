@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
     padding: 24,
   },
   titulo: {
-    fontFamily: "OpenSans-ExtraBold",
     fontSize: 28,
   },
   iconeMenu: {

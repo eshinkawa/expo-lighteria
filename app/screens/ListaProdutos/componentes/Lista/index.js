@@ -6,8 +6,8 @@ import { styles } from "./styles";
 
 export const Lista = () => {
   const [data, setData] = useState([]);
-  useEffect(async () => {
-    await getList();
+  useEffect(() => {
+    getList();
   }, []);
 
   const getList = async () => {
