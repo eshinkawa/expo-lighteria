@@ -1,4 +1,6 @@
-import React from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import {
   TouchableOpacity,
   Image,
@@ -6,106 +8,154 @@ import {
   View,
   Text,
   ImageBackground,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Sacola, Botao } from '../../componentes';
+  StyleSheet,
+} from "react-native";
 
-export default function DetalhesProduto() {
+import { Sacola, Botao } from "../../componentes";
+
+const DetalhesProduto = (props) => {
   const navigation = useNavigation();
 
+  const { name, estudio, imagem, itemName, titulo, id, preco } =
+    props.route.params;
+
+  const getData = async () => {
+    const value = await AsyncStorage.getItem("favorites-list");
+    if (value !== null) {
+      return value != null ? JSON.parse(value) : null;
+    }
+  };
+
+  const addToFavorites = async () => {
+    const listaString = await AsyncStorage.getItem("lista_produtos");
+
+    const listaJson = listaString !== null ? JSON.parse(listaString) : [];
+
+    const objeto = props.route.params;
+
+    listaJson.push(objeto);
+    const listStringfied = JSON.stringify(listaJson);
+    await AsyncStorage.setItem("lista_produtos", listStringfied);
+    alert("Produto salvo");
+  };
+
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 2 }}>
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
         <ImageBackground
           resizeMode="cover"
-          source={require('../../assets/images/bgimage.png')}
-          style={{ width: Dimensions.get('window').width, height: '100%' }}
+          source={require("../../assets/images/bgimage.png")}
+          style={styles.imageBackground}
         >
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 24,
-            }}
-          >
+          <View style={styles.header}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Image
-                source={require('../../assets/images/flecha-esquerda.png')}
-                style={{ width: 24, height: 24 }}
+                source={{ uri: imagem, height: 60, width: 60 }}
+                style={styles.backIcon}
               />
             </TouchableOpacity>
-            <View
-              style={{
-                backgroundColor: 'white',
-                padding: 18,
-                borderBottomLeftRadius: 30,
-                borderTopLeftRadius: 30,
-                elevation: 3,
-                marginRight: -24,
-                marginTop: -10,
-              }}
-            >
-              <Sacola />
+            <View style={styles.cartIconContainer}>
+              <View style={styles.cartIconBackground}>
+                <Sacola />
+              </View>
             </View>
           </View>
         </ImageBackground>
       </View>
-      <View
-        style={{
-          flex: 1,
-          marginTop: -60,
-        }}
-      >
-        <View
-          style={{
-            justifyContent: 'center',
-            flexDirection: 'row',
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: 'white',
-              borderRadius: 30,
-              padding: 32,
-              width: '88%',
-              elevation: 4,
-            }}
-          >
-            <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-            >
-              <View>
-                <Text>Jim&Jill Designs</Text>
-                <Text>Wilson</Text>
-                <Text>Table Lamp</Text>
-              </View>
-
-              <Image
-                source={require('../../assets/images/detalhes-table-lamp.png')}
-                style={{ width: 24, height: 60 }}
-              />
-            </View>
-            <View>
-              <Text>
-                Jim&Kill Designs created a master piece called Wilson. It's a
-                dream lamp for any chic office out there
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Text>$92</Text>
-              <Botao titulo="DETAILS" />
-            </View>
+      <View style={styles.detailsContainer}>
+        <View style={styles.productInfo}>
+          <View style={styles.productDetails}>
+            <Text style={styles.brand}>{estudio}</Text>
+            <Text style={styles.author}>{itemName}</Text>
           </View>
+          <Image
+            source={{ uri: imagem, height: 50, width: 50 }}
+            style={styles.productImage}
+          />
+        </View>
+
+        <View style={styles.priceContainer}>
+          <Botao
+            titulo="Adicionar aos favoritos"
+            icone={false}
+            onPress={addToFavorites}
+          />
         </View>
       </View>
     </View>
   );
-}
+};
 
-// Jim&Jill Designs Wilson Table Lamp Jim&Kill Designs created a master piece called Wilson. It's a dream lamp for any chic office out there $92
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  imageContainer: {
+    flex: 2,
+  },
+  imageBackground: {
+    width: Dimensions.get("window").width,
+    height: "100%",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 24,
+  },
+  backIcon: {
+    width: 24,
+    height: 24,
+  },
+  cartIconContainer: {
+    backgroundColor: "white",
+    padding: 18,
+    borderBottomLeftRadius: 30,
+    borderTopLeftRadius: 30,
+    elevation: 3,
+    marginRight: -24,
+    marginTop: -10,
+  },
+  cartIconBackground: {
+    backgroundColor: "white",
+    padding: 18,
+    borderBottomLeftRadius: 30,
+    borderTopLeftRadius: 30,
+    elevation: 3,
+    marginRight: -24,
+    marginTop: -10,
+  },
+  detailsContainer: {
+    flex: 1,
+    marginTop: -60,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  productInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 30,
+    padding: 32,
+    width: "88%",
+    elevation: 4,
+  },
+  productDetails: {},
+  brand: {},
+  author: {},
+  productName: {},
+  productImage: {
+    width: 24,
+    height: 60,
+  },
+  productDescription: {},
+  priceContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  price: {},
+});
+
+export default DetalhesProduto;
