@@ -11,7 +11,7 @@ export const Cabecalho = () => {
         source={require("../../../../assets/images/icon-menu.png")}
         style={styles.iconeMenu}
       />
-      <Text style={styles.titulo}>LightAR</Text>
+      <Text style={styles.titulo}>Lighteria</Text>
       <View style={styles.containerSacola}>
         <Sacola />
       </View>

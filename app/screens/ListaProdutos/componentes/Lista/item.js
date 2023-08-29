@@ -7,19 +7,19 @@ import {
   FONT_FAMILY_SEMI_BOLD,
 } from "../../../../styles/tipografia";
 
-export const Item = ({ descricao, imagem }) => {
+export const Item = (props) => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("DetalhesProduto")}
+      onPress={() => navigation.navigate("DetalhesProduto", { ...props })}
       style={styles.containerItem}
     >
       <Image
-        source={{ uri: imagem, height: 84, width: 84 }}
+        source={{ uri: props.imagem, height: 84, width: 84 }}
         resizeMode="contain"
       />
-      <Text style={styles.texto}>{descricao}</Text>
+      <Text style={styles.texto}>{props.itemName}</Text>
     </TouchableOpacity>
   );
 };

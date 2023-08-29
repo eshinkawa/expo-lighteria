@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import DetalhesProduto from "./app/screens/DetalhesProduto";
+import ListaDesejos from "./app/screens/ListaDesejos";
 import ListaProdutos from "./app/screens/ListaProdutos";
 
 const Stack = createStackNavigator();
@@ -19,6 +20,11 @@ function App() {
           name="DetalhesProduto"
           component={DetalhesProduto}
           options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="ListaDesejos"
+          component={ListaDesejos}
+          options={{ headerShown: true, headerTitle: "Lista de desejos" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

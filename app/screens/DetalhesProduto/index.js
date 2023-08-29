@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   TouchableOpacity,
   Image,
@@ -16,7 +16,7 @@ import { Sacola, Botao } from "../../componentes";
 const DetalhesProduto = (props) => {
   const navigation = useNavigation();
 
-  const { name, estudio, imagem, itemName, titulo, id, preco } =
+  const { estudio, imagem, itemName, itemDesc, titulo, id, preco } =
     props.route.params;
 
   const getData = async () => {
@@ -27,15 +27,28 @@ const DetalhesProduto = (props) => {
   };
 
   const addToFavorites = async () => {
+    console.log("Add to favorites");
+    // pegar a lista se ela ja existir
     const listaString = await AsyncStorage.getItem("lista_produtos");
 
+    // transformar de string para array
     const listaJson = listaString !== null ? JSON.parse(listaString) : [];
 
+    // declar o que vai ser mandado para a lista
     const objeto = props.route.params;
 
+    // fazer o push do objeto na lista
     listaJson.push(objeto);
+
+    // stringificar a lista
     const listStringfied = JSON.stringify(listaJson);
+
+    // salvar a lista
     await AsyncStorage.setItem("lista_produtos", listStringfied);
+
+    // verficar se salvou
+    const novaLista = await AsyncStorage.getItem("lista_produtos");
+    console.log("novaLista", novaLista);
     alert("Produto salvo");
   };
 
@@ -78,7 +91,7 @@ const DetalhesProduto = (props) => {
           <Botao
             titulo="Adicionar aos favoritos"
             icone={false}
-            onPress={addToFavorites}
+            onPressButton={addToFavorites}
           />
         </View>
       </View>

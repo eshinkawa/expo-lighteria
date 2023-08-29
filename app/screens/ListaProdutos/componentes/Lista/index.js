@@ -11,7 +11,7 @@ export const Lista = () => {
   }, []);
 
   const getList = async () => {
-    await fetch("https://run.mocky.io/v3/6e1a79f0-968f-40de-992f-3d218ab1f249")
+    await fetch("https://run.mocky.io/v3/8810362d-ffa4-4635-9180-dfefa47242f4")
       .then((response) => response.json())
       .then((res) => {
         setData(res);
@@ -27,9 +27,7 @@ export const Lista = () => {
       <FlatList
         numColumns={2}
         data={data}
-        renderItem={({ item }) => (
-          <Item descricao={item.titulo} imagem={item.imagem} />
-        )}
+        renderItem={({ item }) => <Item {...item} />}
         keyExtractor={(item) => item.id}
       />
     </View>

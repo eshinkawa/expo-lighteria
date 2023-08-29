@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 
 import { FONT_FAMILY_REGULAR, FONT_SIZE_16 } from "../styles/tipografia";
 
-export function Botao({ width = 200, titulo, icone = true }) {
+export function Botao({ width = 200, titulo, icone = true, onPressButton }) {
   return (
-    <TouchableOpacity>
+    <Pressable onPress={onPressButton}>
       <View style={{ alignItems: "center", marginTop: 16 }}>
         <View style={[styles.container, { width }]}>
           {icone && (
@@ -17,7 +17,7 @@ export function Botao({ width = 200, titulo, icone = true }) {
           <Text style={styles.texto}>{titulo}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
