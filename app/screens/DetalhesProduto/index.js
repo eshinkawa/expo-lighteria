@@ -19,13 +19,6 @@ const DetalhesProduto = (props) => {
   const { estudio, imagem, itemName, itemDesc, titulo, id, preco } =
     props.route.params;
 
-  const getData = async () => {
-    const value = await AsyncStorage.getItem("favorites-list");
-    if (value !== null) {
-      return value != null ? JSON.parse(value) : null;
-    }
-  };
-
   const addToFavorites = async () => {
     console.log("Add to favorites");
     // pegar a lista se ela ja existir
